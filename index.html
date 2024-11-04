@@ -57,16 +57,12 @@
             fetch('tool_data.json')
                 .then(response => response.json())
                 .then(data => {
-                    const tableBody = document.querySelector('#tool-table tbody');
                     data.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${item.tool}</td>
-                            <td>${item.user}</td>
-                            <td>${new Date(item.borrowDate).toLocaleString()}</td>
-                            <td>${getTimePassed(new Date(item.borrowDate))}</td>
-                        `;
-                        tableBody.appendChild(row);
+                        const tool_read = item.tool;
+                        const user_read = item.user;
+                        const borrow_date_read = new Date(item.borrowDate);
+                        const newTool = {tool_read, user_read , borrow_date_read};
+                        toolData.push(newTool);
                     });
                 })
                 .catch(error => console.error('Error loading tool data:', error));
