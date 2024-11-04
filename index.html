@@ -131,7 +131,7 @@
         function renderTable() {
             const tbody = document.getElementById("tool-table").querySelector("tbody");
             tbody.innerHTML = tbody.rows[0].outerHTML; // Keep only input row
-    
+            console.log(toolData);
             toolData.forEach((data, index) => {
                 const timePassed = formatTimePassed(data.borrowDate);
                 conole.log(index);
