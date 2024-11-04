@@ -3,29 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Connection Test</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            color: #333;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2em;
-            color: #4CAF50;
-        }
-    </style>
+    <title>Tool Borrowing Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Connection is working!</h1>
+    <!-- Header with the current time and user info -->
+    <header>
+        <span id="current-time"></span> <span id="user-name">John Doe</span>
+    </header>
+
+    <!-- Search and Sort Options -->
+    <div class="controls">
+        <input type="text" id="search-tool" placeholder="Search by tool" oninput="filterTable()">
+        <input type="text" id="search-user" placeholder="Search by user" oninput="filterTable()">
+    </div>
+
+    <!-- Slidable frame containing the tool borrowing table -->
+    <div class="table-container">
+        <table id="tool-table">
+            <thead>
+                <tr>
+                    <th>Tool</th>
+                    <th>User</th>
+                    <th>Borrow Date</th>
+                    <th onclick="toggleSortOrder()" class="sortable">Time Passed
+                        <span id="sort-icon">▲</span> <!-- Sort icon -->
+                    </th>
+                    <th>Notify</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Input row for adding new data -->
+                <tr>
+                    <td><input type="text" placeholder="Tool name" id="input-tool"></td>
+                    <td><input type="text" placeholder="User name" id="input-user"></td>
+                    <td>–</td>
+                    <td>–</td>
+                    <td><button class="add-row-btn" onclick="addRow()">Add</button></td>
+                </tr>
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let sortOrder = 'asc'; // Default sort order
+        const toolData = []; // Data structure for storing tool information
+        let updateInterval; // To store the interval ID for time updates
+    
+        // Function to fetch tool data and populate the table
+        function loadToolData() {
+            fetch('tool_data.json')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#tool-table tbody');
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.tool}</td>
+                            <td>${item.user}</td>
+                            <td>${new Date(item.borrowDate).toLocaleString()}</td>
+                            <td>${getTimePassed(new Date(item.borrowDate))}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error loading tool data:', error));
+        }
+
+    
+        function toggleSortOrder() {
+            sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+            document.getElementById("sort-icon").textContent = sortOrder === 'asc' ? "▲" : "▼";
+            sortTable(sortOrder);
+        }
+    
+        // Display current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("current-time").textContent = now.toLocaleString();
+        }
+        setInterval(updateTime, 1000);
+    
+        // Function to add a new row
+        function addRow() {
+            const toolName = document.getElementById("input-tool").value;
+            const userName = document.getElementById("input-user").value;
+            const borrowDate = new Date(); // Automatically use the current date
+    
+            // Simple form validation
+            if (toolName && userName) {
+                const newTool = { toolName, userName, borrowDate };
+                toolData.push(newTool);
+    
+                // Clear inputs and re-render table
+                document.getElementById("input-tool").value = '';
+                document.getElementById("input-user").value = '';
+                renderTable();
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    
+        // Function to format the time passed
+        function formatTimePassed(date) {
+            const now = new Date();
+            const secondsPassed = Math.floor((now - date) / 1000);
+    
+            if (secondsPassed >= 86400) return Math.floor(secondsPassed / 86400) + " days";
+            if (secondsPassed >= 3600) return Math.floor(secondsPassed / 3600) + " hours";
+            if (secondsPassed >= 60) return Math.floor(secondsPassed / 60) + " minutes";
+            return secondsPassed + " seconds";
+        }
+    
+        // Function to render the table
+        function renderTable() {
+            const tbody = document.getElementById("tool-table").querySelector("tbody");
+            tbody.innerHTML = tbody.rows[0].outerHTML; // Keep only input row
+    
+            toolData.forEach((data, index) => {
+                const timePassed = formatTimePassed(data.borrowDate);
+    
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${data.toolName}</td>
+                    <td>${data.userName}</td>
+                    <td>${data.borrowDate.toLocaleDateString()}</td>
+                    <td class="time-passed" data-borrow-date="${data.borrowDate.toISOString()}">${timePassed}</td>
+                    <td><button class="notify-btn" onclick="notifyUser(${index})">Notify</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    
+        // Function to notify the user
+        function notifyUser(index) {
+            const user = toolData[index];
+            alert(`User ${user.userName} has been notified.`);
+        }
+    
+        // Function to filter the table by user or tool
+        function filterTable() {
+            const searchUser = document.getElementById("search-user").value.toLowerCase();
+            const searchTool = document.getElementById("search-tool").value.toLowerCase();
+    
+            const filteredData = toolData.filter(data => 
+                data.userName.toLowerCase().includes(searchUser) && 
+                data.toolName.toLowerCase().includes(searchTool)
+            );
+    
+            renderFilteredTable(filteredData);
+        }
+    
+        // Function to render a filtered table view
+        function renderFilteredTable(filteredData) {
+            const tbody = document.getElementById("tool-table").querySelector("tbody");
+            tbody.innerHTML = tbody.rows[0].outerHTML; // Keep only input row
+    
+            filteredData.forEach((data, index) => {
+                const timePassed = formatTimePassed(data.borrowDate);
+    
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${data.toolName}</td>
+                    <td>${data.userName}</td>
+                    <td>${data.borrowDate.toLocaleDateString()}</td>
+                    <td class="time-passed" data-borrow-date="${data.borrowDate.toISOString()}">${timePassed}</td>
+                    <td><button class="notify-btn" onclick="notifyUser(${index})">Notify</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    
+        // Function to sort the table by time passed
+        function sortTable(order) {
+            toolData.sort((a, b) => {
+                const timeA = new Date() - a.borrowDate;
+                const timeB = new Date() - b.borrowDate;
+                return order === 'asc' ? timeA - timeB : timeB - timeA;
+            });
+    
+            renderTable();
+        }
+    
+        // Function to update "Time Passed" every second
+        function updateTimePassed() {
+            const timeCells = document.querySelectorAll('.time-passed');
+            timeCells.forEach(cell => {
+                const borrowDate = new Date(cell.getAttribute('data-borrow-date'));
+                cell.textContent = formatTimePassed(borrowDate);
+            });
+        }
+    
+        // Initialize the application
+        window.onload = function() {
+            updateTime(); // Initialize time display
+            updateInterval = setInterval(updateTimePassed, 1000); // Update time passed every second
+            loadToolData();
+        };
+    </script>
+    
 
 </body>
 </html>
-

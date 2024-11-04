@@ -1,0 +1,27 @@
+[
+    {
+        "tool": "Hammer",
+        "user": "Alice Smith",
+        "borrowDate": "2024-09-20T10:00:00Z"
+    },
+    {
+        "tool": "Drill",
+        "user": "Bob Johnson",
+        "borrowDate": "2024-10-05T12:30:00Z"
+    },
+    {
+        "tool": "Wrench",
+        "user": "Charlie Brown",
+        "borrowDate": "2024-09-25T15:45:00Z"
+    },
+    {
+        "tool": "Screwdriver",
+        "user": "David Wilson",
+        "borrowDate": "2024-10-10T09:15:00Z"
+    },
+    {
+        "tool": "Pliers",
+        "user": "Eva Green",
+        "borrowDate": "2024-08-30T14:00:00Z"
+    }
+]
