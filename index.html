@@ -64,6 +64,7 @@
                         const newTool = {tool_read, user_read , borrow_date_read};
                         console.log(newTool);
                         toolData.push(newTool);
+                        renderTable();
                     });
                 })
                 .catch(error => console.error('Error loading tool data:', error));
