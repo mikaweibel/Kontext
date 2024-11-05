@@ -88,6 +88,7 @@
                         console.log(newTool);
                         toolData.push(newTool);
                         renderTable();
+                        toggleSortOrder()
                     });
                 })
                 .catch(error => console.error('Error loading tool data:', error));
