@@ -173,9 +173,6 @@
                     const borrowedDate = new Date(data.borrowDate);
                     const today = new Date();
                     const daysDiff = Math.floor((today - borrowedDate) / (1000 * 60 * 60 * 24));
-                    console.log("YOLO");
-                    console.log(daysDiff);
-                    console.log("YOLO");
                     if (daysDiff < 3) {
                         row.classList.add('cell-borrowed-user-recent');
                     } else if (daysDiff < 60) {
@@ -184,10 +181,7 @@
                         row.classList.add('cell-borrowed-user-oldest');
                     }
                 }
-                if((ignoreAvailableTools.checked && data.userName != "-" )|| (!ignoreAvailableTools.checked && data.userName == "-")){
-                    tbody.appendChild(row);
-                }
-                if((ignoreNonAvailableTools.checked && data.userName === "-" )|| (!ignoreNonAvailableTools.checked && data.userName != "-")){
+                if(((!ignoreAvailableTools.checked && data.userName == "-" ) || (!ignoreNonAvailableTools.checked && data.userName != "-" ))&&(!(ignoreNonAvailableTools.checked && ignoreAvailableTools.checked))){
                     tbody.appendChild(row);
                 }
             });
@@ -258,10 +252,10 @@
                         row.classList.add('cell-borrowed-user-oldest');
                     }
                 }
-                if((ignoreAvailableTools.checked && data.userName != "-" )|| (!ignoreAvailableTools.checked && data.userName == "-")){
-                    tbody.appendChild(row);
-                }
-                if((ignoreNonAvailableTools.checked && data.userName === "-" )|| (!ignoreNonAvailableTools.checked && data.userName != "-")){
+                if(((!ignoreAvailableTools.checked && data.userName == "-" ) && (!ignoreNonAvailableTools.checked && data.userName != "-" ))&&(!(ignoreNonAvailableTools.checked && ignoreAvailableTools.checked))){
+                    console.log(ignoreAvailableTools.checked);
+                    console.log(ignoreNonAvailableTools.checked);
+                    console.log(data.userName == "-");
                     tbody.appendChild(row);
                 }
             });
