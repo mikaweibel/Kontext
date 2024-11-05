@@ -22,8 +22,8 @@
     </div>
 
     <!-- Slidable frame containing the tool borrowing table -->
-    <div class="table-container">
-        <table id="tool-table">
+    <div class="table-container-header">
+        <table id="tool-table-header">
             <thead>
                 <tr>
                     <th>Tool</th>
@@ -43,6 +43,22 @@
                     <td>–</td>
                     <td>–</td>
                     <td><button class="add-row-btn" onclick="addRow()">Add</button></td>
+                </tr>
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Slidable frame containing the tool borrowing table -->
+    <div class="table-container">
+        <table id="tool-table">
+            <thead>
+                <tr>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Input row for adding new data -->
+                <tr>
                 </tr>
                 <!-- Dynamic rows will be added here -->
             </tbody>

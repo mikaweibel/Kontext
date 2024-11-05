@@ -1,7 +1,7 @@
 /* General body styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
+    background-color: #ffffff;
     color: #333;
     padding: 20px;
     margin: 0;
@@ -60,9 +60,17 @@ header {
 
 /* Table container styling */
 .table-container {
-    height: calc(100vh - 180px); /* Adjust to fit the header and controls, leaving space at the bottom */
+    height: calc(100vh - 300px); /* Adjust to fit the header and controls, leaving space at the bottom */
     overflow-y: auto; /* Enable vertical scrolling if needed */
     margin: 10px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table-container-header {
+    margin-right: 30px;
+    margin-left: 10px;
     background: white;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -73,6 +81,7 @@ header {
 table {
     width: 100%;
     border-collapse: collapse;
+        padding-right: 15px; /* Adjust this value as needed to match the scrollbar width */
 }
 
 thead th {
