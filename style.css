@@ -81,7 +81,8 @@ header {
 table {
     width: 100%;
     border-collapse: collapse;
-        padding-right: 15px; /* Adjust this value as needed to match the scrollbar width */
+    padding-right: 15px; /* Adjust this value as needed to match the scrollbar width */
+    table-layout: fixed;
 }
 
 thead th {
