@@ -1,33 +1,30 @@
-/* General body styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffffff;
-    color: #333;
+    background-color: #121212;
+    color: #e0e0e0;
     padding: 20px;
     margin: 0;
 }
 
-/* Optional styling for better appearance */
 .checkbox-group {
-    display: flex;           /* Use flexbox to arrange checkboxes in a row */
-    align-items: center;     /* Center checkboxes and labels vertically */
-    gap: 10px;              /* Space between checkboxes */
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 label {
-    display: flex;          /* Use flexbox to align items within label */
-    align-items: center;    /* Center the text with the checkbox */
+    display: flex;
+    align-items: center;
 }
 
 input[type="checkbox"] {
-    margin-right: 5px;      /* Space between checkbox and label text */
+    margin-right: 5px;
     margin-top: -10px;
 }
 
-/* Header styling */
 header {
     font-size: 1.2em;
-    color: #2b2e4a;
+    color: #e0e0e0;
     margin-bottom: 20px;
     font-weight: bold;
     display: flex;
@@ -35,7 +32,6 @@ header {
     align-items: center;
 }
 
-/* Controls section */
 .controls {
     display: flex;
     gap: 10px;
@@ -44,12 +40,12 @@ header {
 
 .controls input[type="text"] {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     border-radius: 5px;
-    width: 180px;
+    width: 180px; /* Adjust width as needed */
     font-size: 0.9em;
-    color: #555;
-    background-color: #f9f9f9;
+    color: #e0e0e0;
+    background-color: #333;
     transition: border 0.3s ease;
 }
 
@@ -58,30 +54,43 @@ header {
     outline: none;
 }
 
-/* Table container styling */
 .table-container {
-    height: calc(100vh - 300px); /* Adjust to fit the header and controls, leaving space at the bottom */
-    overflow-y: scroll; /* Enable vertical scrolling if needed */
+    height: calc(100vh - 300px);
+    overflow-y: scroll;
     margin: 10px;
-    background: white;
+    background: #1e1e1e;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.table-input {
+    width: 90%;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #e0e0e0;
+    background-color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.table-input:focus {
+    border-color: #4a90e2;
+    outline: none;
 }
 
 .table-container-header {
     margin-right: 30px;
     margin-left: 10px;
-    background: white;
+    background: #1e1e1e;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
-
-
-/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
-    padding-right: 15px; /* Adjust this value as needed to match the scrollbar width */
+    padding-right: 15px;
     table-layout: fixed;
 }
 
@@ -98,48 +107,53 @@ thead th.sortable:hover {
     background-color: #357ab7;
 }
 
-/* Sort icon styling */
 #sort-icon {
     font-size: 0.8em;
     margin-left: 5px;
 }
 
-/* Existing Row Styling */
 tbody tr:hover {
-    background-color: #e6f2ff;
+    background-color: #2a2a2a;
 }
 
-/* New Cell Styles */
 .cell-borrowed-user-none {
-    background-color: lightblue;
+    background-color: #3399cc;
 }
 
 .cell-borrowed-user-recent {
-    background-color: lightgreen;
+    background-color: #66bb6a;
 }
 
 .cell-borrowed-user-old {
-    background-color: lightcoral; /* light red */
+    background-color: #ff8a65;
 }
 
 .cell-borrowed-user-oldest {
-    background-color: rgb(255, 73, 73);
+    background-color: #ff5252;
 }
 
+.tbody input[type="text"] {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    width: 180px; /* Adjust width as needed */
+    font-size: 0.9em;
+    color: #e0e0e0;
+    background-color: #333;
+    transition: border 0.3s ease;
+}
 
-/* Table cells */
 th, td {
     padding: 12px;
     text-align: center;
-    border-bottom: 0px solid #e0e0e0;
+    border-bottom: 0px solid #555;
 }
 
-/* Input styles for table cells */
 input[type="text"] {
     width: 90%;
     padding: 8px;
     margin: 0;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     border-radius: 4px;
     font-size: 1em;
     transition: border-color 0.3s;
