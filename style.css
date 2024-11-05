@@ -61,7 +61,7 @@ header {
 /* Table container styling */
 .table-container {
     height: calc(100vh - 300px); /* Adjust to fit the header and controls, leaving space at the bottom */
-    overflow-y: auto; /* Enable vertical scrolling if needed */
+    overflow-y: scroll; /* Enable vertical scrolling if needed */
     margin: 10px;
     background: white;
     border-radius: 5px;
