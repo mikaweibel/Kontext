@@ -10,13 +10,15 @@
 
     <!-- Header with the current time and user info -->
     <header>
-        <span id="current-time"></span> <span id="user-name">John Doe</span>
+        <span id="current-time"></span> <span id="user-name">Test User 1</span>
     </header>
 
     <!-- Search and Sort Options -->
     <div class="controls">
         <input type="text" id="search-tool" placeholder="Search by tool" oninput="filterTable()">
         <input type="text" id="search-user" placeholder="Search by user" oninput="filterTable()">
+        <input type="checkbox" id="ignoreAvailableTools" onclick="renderTable()"> Ignore Available
+        <input type="checkbox" id="ignoreNonAvailableTools" onclick="renderTable()"> Ignore Absent Tools
     </div>
 
     <!-- Slidable frame containing the tool borrowing table -->
@@ -49,7 +51,7 @@
 
     <script>
         let sortOrder = 'asc'; // Default sort order
-        let toolData = []; // Data structure for storing tool information
+        const toolData = []; // Data structure for storing tool information
         let updateInterval; // To store the interval ID for time updates
     
         // Function to fetch tool data and populate the table
@@ -58,29 +60,22 @@
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(item => {
-                        const tool_read = item.tool;
-                        const user_read = item.user;
-                        const borrow_date_read = item.borrowDate;
-                        const newTool = {tool_read, user_read , borrow_date_read};
+                        const toolName = item.tool;
+                        const userName = item.user;
+                        var borrowDate = "";
+                        if (userName == "-"){
+                            borrowDate =  "-";
+                        }
+                        else{
+                            borrowDate =  new Date(item.borrowDate);
+                        }     
+                        const newTool = {toolName, userName , borrowDate};
                         console.log(newTool);
                         toolData.push(newTool);
                         renderTable();
                     });
                 })
                 .catch(error => console.error('Error loading tool data:', error));
-        }
-        
-        // Function to calculate the time passed since the tool was borrowed
-        function getTimePassed(borrowDate) {
-            const now = new Date();
-            const seconds = Math.floor((now - borrowDate) / 1000);
-            if (seconds < 60) return `${seconds} seconds ago`;
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes} minutes ago`;
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours} hours ago`;
-            const days = Math.floor(hours / 24);
-            return `${days} days ago`;
         }
 
     
@@ -132,19 +127,53 @@
         function renderTable() {
             const tbody = document.getElementById("tool-table").querySelector("tbody");
             tbody.innerHTML = tbody.rows[0].outerHTML; // Keep only input row
-            console.log(toolData);
             toolData.forEach((data, index) => {
                 const timePassed = formatTimePassed(data.borrowDate);
-                console.log(index);
                 const row = document.createElement("tr");
+                if(data.borrowDate != "-"){
                 row.innerHTML = `
                     <td>${data.toolName}</td>
-                    <td>${data.userName}</td>
+                    <td>${String(data.userName)}</td>
                     <td>${data.borrowDate.toLocaleDateString()}</td>
                     <td class="time-passed" data-borrow-date="${data.borrowDate.toISOString()}">${timePassed}</td>
                     <td><button class="notify-btn" onclick="notifyUser(${index})">Notify</button></td>
                 `;
-                tbody.appendChild(row);
+                }
+                else{
+                    row.innerHTML = `
+                    <td>${data.toolName}</td>
+                    <td>${String(data.userName)}</td>
+                    <td>${data.borrowDate}</td>
+                    <td class="time-passed" data-borrow-date="${data.borrowDate}">-</td>
+                    <td><button class="notify-btn" onclick="notifyUser(${index})">Notify</button></td>
+                `;
+                }
+                // Apply styles based on conditions
+
+                if (data.userName === "-") {
+                        row.classList.add('cell-borrowed-user-none');
+                } 
+                else {
+                    const borrowedDate = new Date(data.borrowDate);
+                    const today = new Date();
+                    const daysDiff = Math.floor((today - borrowedDate) / (1000 * 60 * 60 * 24));
+                    console.log("YOLO");
+                    console.log(daysDiff);
+                    console.log("YOLO");
+                    if (daysDiff < 3) {
+                        row.classList.add('cell-borrowed-user-recent');
+                    } else if (daysDiff < 60) {
+                        row.classList.add('cell-borrowed-user-old');
+                    } else {
+                        row.classList.add('cell-borrowed-user-oldest');
+                    }
+                }
+                if((ignoreAvailableTools.checked && data.userName != "-" )|| (!ignoreAvailableTools.checked && data.userName == "-")){
+                    tbody.appendChild(row);
+                }
+                if((ignoreNonAvailableTools.checked && data.userName === "-" )|| (!ignoreNonAvailableTools.checked && data.userName != "-")){
+                    tbody.appendChild(row);
+                }
             });
         }
     
@@ -160,8 +189,8 @@
             const searchTool = document.getElementById("search-tool").value.toLowerCase();
     
             const filteredData = toolData.filter(data => 
-                data.userName.toLowerCase().includes(searchUser) && 
-                data.toolName.toLowerCase().includes(searchTool)
+                data.userName.toLowerCase().startsWith(searchUser) && 
+                data.toolName.toLowerCase().startsWith(searchTool)
             );
     
             renderFilteredTable(filteredData);
@@ -174,26 +203,80 @@
     
             filteredData.forEach((data, index) => {
                 const timePassed = formatTimePassed(data.borrowDate);
-    
                 const row = document.createElement("tr");
+                if(data.borrowDate != "-"){
                 row.innerHTML = `
                     <td>${data.toolName}</td>
-                    <td>${data.userName}</td>
+                    <td>${String(data.userName)}</td>
                     <td>${data.borrowDate.toLocaleDateString()}</td>
                     <td class="time-passed" data-borrow-date="${data.borrowDate.toISOString()}">${timePassed}</td>
                     <td><button class="notify-btn" onclick="notifyUser(${index})">Notify</button></td>
                 `;
-                tbody.appendChild(row);
+                }
+                else{
+                    row.innerHTML = `
+                    <td>${data.toolName}</td>
+                    <td>${String(data.userName)}</td>
+                    <td>${data.borrowDate}</td>
+                    <td class="time-passed" data-borrow-date="${data.borrowDate}">-</td>
+                    <td><button class="notify-btn" onclick="notifyUser(${index})">Notify</button></td>
+                `;
+                }
+                // Apply styles based on conditions
+
+                if (data.userName === "-") {
+                        row.classList.add('cell-borrowed-user-none');
+                } 
+                else {
+                    const borrowedDate = new Date(data.borrowDate);
+                    const today = new Date();
+                    const daysDiff = Math.floor((today - borrowedDate) / (1000 * 60 * 60 * 24));
+                    console.log("YOLO");
+                    console.log(daysDiff);
+                    console.log("YOLO");
+                    if (daysDiff < 3) {
+                        row.classList.add('cell-borrowed-user-recent');
+                    } else if (daysDiff < 60) {
+                        row.classList.add('cell-borrowed-user-old');
+                    } else {
+                        row.classList.add('cell-borrowed-user-oldest');
+                    }
+                }
+                if((ignoreAvailableTools.checked && data.userName != "-" )|| (!ignoreAvailableTools.checked && data.userName == "-")){
+                    tbody.appendChild(row);
+                }
+                if((ignoreNonAvailableTools.checked && data.userName === "-" )|| (!ignoreNonAvailableTools.checked && data.userName != "-")){
+                    tbody.appendChild(row);
+                }
             });
         }
     
         // Function to sort the table by time passed
         function sortTable(order) {
             toolData.sort((a, b) => {
-                const timeA = new Date() - a.borrowDate;
-                const timeB = new Date() - b.borrowDate;
+                const dateA = new Date(a.borrowDate);
+                const dateB = new Date(b.borrowDate);
+                
+                // Check if dates are valid
+                const isValidDateA = !isNaN(dateA.getTime());
+                const isValidDateB = !isNaN(dateB.getTime());
+
+                // Handle invalid dates
+                if (!isValidDateA && !isValidDateB) {
+                    return 0; // Both are invalid, maintain their order
+                } else if (!isValidDateA) {
+                    return 1; // A is invalid, put it after B
+                } else if (!isValidDateB) {
+                    return -1; // B is invalid, put it after A
+                }
+
+                // Both dates are valid, sort by the difference from now
+                const timeA = new Date() - dateA;
+                const timeB = new Date() - dateB;
+                
                 return order === 'asc' ? timeA - timeB : timeB - timeA;
             });
+
     
             renderTable();
         }
@@ -203,17 +286,23 @@
             const timeCells = document.querySelectorAll('.time-passed');
             timeCells.forEach(cell => {
                 const borrowDate = new Date(cell.getAttribute('data-borrow-date'));
-                cell.textContent = formatTimePassed(borrowDate);
+                console.log(borrowDate);
+                if (borrowDate.isNaN()){
+                    cell.textContent = formatTimePassed(borrowDate);
+                }
+                else{
+                    cell.textContent = "-"; 
+                }
             });
         }
     
         // Initialize the application
         window.onload = function() {
+            console.log("Website started!");
             updateTime(); // Initialize time display
             updateInterval = setInterval(updateTimePassed, 1000); // Update time passed every second
             loadToolData();
             console.log(toolData);
-            renderTable();
         };
     </script>
     

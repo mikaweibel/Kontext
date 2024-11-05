@@ -7,6 +7,23 @@ body {
     margin: 0;
 }
 
+/* Optional styling for better appearance */
+.checkbox-group {
+    display: flex;           /* Use flexbox to arrange checkboxes in a row */
+    align-items: center;     /* Center checkboxes and labels vertically */
+    gap: 10px;              /* Space between checkboxes */
+}
+
+label {
+    display: flex;          /* Use flexbox to align items within label */
+    align-items: center;    /* Center the text with the checkbox */
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;      /* Space between checkbox and label text */
+    margin-top: -10px;
+}
+
 /* Header styling */
 header {
     font-size: 1.2em;
@@ -77,14 +94,28 @@ thead th.sortable:hover {
     margin-left: 5px;
 }
 
-/* Row styling */
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
+/* Existing Row Styling */
 tbody tr:hover {
     background-color: #e6f2ff;
 }
+
+/* New Cell Styles */
+.cell-borrowed-user-none {
+    background-color: lightblue;
+}
+
+.cell-borrowed-user-recent {
+    background-color: lightgreen;
+}
+
+.cell-borrowed-user-old {
+    background-color: lightcoral; /* light red */
+}
+
+.cell-borrowed-user-oldest {
+    background-color: rgb(255, 73, 73);
+}
+
 
 /* Table cells */
 th, td {

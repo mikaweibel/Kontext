@@ -6,8 +6,8 @@
     },
     {
         "tool": "Drill",
-        "user": "Bob Johnson",
-        "borrowDate": "2024-10-05T12:30:00Z"
+        "user": "-",
+        "borrowDate": "-"
     },
     {
         "tool": "Wrench",
