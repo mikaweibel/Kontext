@@ -12,22 +12,22 @@
     {
         "tool": "Wrench",
         "user": "Charlie Brown",
-        "borrowDate": "2024-11-04T15:45:00Z" 
+        "borrowDate": "2024-11-05T15:45:00Z"
     },
     {
         "tool": "Screwdriver",
         "user": "David Wilson",
-        "borrowDate": "2024-10-10T09:15:00Z"
+        "borrowDate": "2024-11-07T09:15:00Z"
     },
     {
         "tool": "Pliers",
         "user": "Eva Green",
-        "borrowDate": "2024-09-05T14:00:00Z"
+        "borrowDate": "2024-11-06T14:00:00Z"
     },
     {
         "tool": "Chisel",
         "user": "Franklin Pierce",
-        "borrowDate": "2024-11-05T11:30:00Z" 
+        "borrowDate": "2024-11-07T11:30:00Z"
     },
     {
         "tool": "Level",
@@ -37,22 +37,22 @@
     {
         "tool": "Tape Measure",
         "user": "George Johnson",
-        "borrowDate": "2024-11-06T12:00:00Z" 
+        "borrowDate": "2024-11-06T12:00:00Z"
     },
     {
         "tool": "Circular Saw",
         "user": "Hannah Lee",
-        "borrowDate": "2024-11-06T08:45:00Z" 
+        "borrowDate": "2024-11-05T08:45:00Z"
     },
     {
         "tool": "Socket Set",
         "user": "Isabella Martinez",
-        "borrowDate": "2024-09-25T10:30:00Z"
+        "borrowDate": "2024-11-05T10:30:00Z"
     },
     {
         "tool": "Jigsaw",
         "user": "Jack Thompson",
-        "borrowDate": "2024-11-05T16:00:00Z" 
+        "borrowDate": "2024-11-07T16:00:00Z"
     },
     {
         "tool": "Stud Finder",
@@ -62,12 +62,12 @@
     {
         "tool": "Mallet",
         "user": "Liam O'Brien",
-        "borrowDate": "2024-08-29T14:15:00Z"
+        "borrowDate": "2024-11-06T09:00:00Z"
     },
     {
         "tool": "Sledgehammer",
         "user": "Mia Chen",
-        "borrowDate": "2024-11-07T09:00:00Z" 
+        "borrowDate": "2024-11-04T09:00:00Z"
     },
     {
         "tool": "Pry Bar",
@@ -77,22 +77,22 @@
     {
         "tool": "Angle Grinder",
         "user": "Olivia Brown",
-        "borrowDate": "2024-11-06T13:30:00Z" 
+        "borrowDate": "2024-11-06T13:30:00Z"
     },
     {
         "tool": "Nail Gun",
         "user": "Paul White",
-        "borrowDate": "2024-10-15T15:00:00Z"
+        "borrowDate": "2024-11-06T15:00:00Z"
     },
     {
         "tool": "Electric Screwdriver",
         "user": "Quinn Jones",
-        "borrowDate": "2024-11-04T09:45:00Z" 
+        "borrowDate": "2024-11-05T09:45:00Z"
     },
     {
         "tool": "Pipe Wrench",
         "user": "Rachel Green",
-        "borrowDate": "2024-11-05T10:15:00Z" 
+        "borrowDate": "2024-11-07T10:15:00Z"
     },
     {
         "tool": "Impact Driver",
@@ -102,27 +102,27 @@
     {
         "tool": "Rotary Tool",
         "user": "Steve Harris",
-        "borrowDate": "2024-10-20T08:30:00Z"
+        "borrowDate": "2024-11-06T08:30:00Z"
     },
     {
         "tool": "Wood Plane",
         "user": "Tina Lee",
-        "borrowDate": "2024-11-07T12:00:00Z" 
+        "borrowDate": "2024-11-07T12:00:00Z"
     },
     {
         "tool": "Utility Knife",
         "user": "Uma Patel",
-        "borrowDate": "2024-11-07T16:30:00Z" 
+        "borrowDate": "2024-11-07T16:30:00Z"
     },
     {
         "tool": "Paint Sprayer",
         "user": "Victor Ramirez",
-        "borrowDate": "2024-11-06T14:45:00Z" 
+        "borrowDate": "2024-11-06T14:45:00Z"
     },
     {
         "tool": "Cordless Drill",
         "user": "Wendy Torres",
-        "borrowDate": "2024-10-03T11:15:00Z"
+        "borrowDate": "2024-11-05T11:15:00Z"
     },
     {
         "tool": "Safety Goggles",
@@ -132,32 +132,32 @@
     {
         "tool": "Work Gloves",
         "user": "Xander King",
-        "borrowDate": "2024-11-06T13:00:00Z" 
+        "borrowDate": "2024-11-06T13:00:00Z"
     },
     {
         "tool": "Ladder",
         "user": "Yara Martinez",
-        "borrowDate": "2024-11-05T17:00:00Z" 
+        "borrowDate": "2024-11-05T17:00:00Z"
     },
     {
         "tool": "Pressure Washer",
         "user": "Zachary Adams",
-        "borrowDate": "2024-11-07T09:30:00Z" 
+        "borrowDate": "2024-11-07T09:30:00Z"
     },
     {
         "tool": "Table Saw",
         "user": "Amy Wilson",
-        "borrowDate": "2024-11-06T15:00:00Z" 
+        "borrowDate": "2024-11-06T15:00:00Z"
     },
     {
         "tool": "Router",
         "user": "Brian Johnson",
-        "borrowDate": "2024-11-04T10:00:00Z" 
+        "borrowDate": "2024-11-06T10:00:00Z"
     },
     {
         "tool": "Belt Sander",
         "user": "Catherine Smith",
-        "borrowDate": "2024-10-07T12:30:00Z" 
+        "borrowDate": "2024-11-06T12:30:00Z"
     },
     {
         "tool": "Shop Vacuum",
@@ -167,11 +167,11 @@
     {
         "tool": "Hand Saw",
         "user": "Daniel Garcia",
-        "borrowDate": "2024-11-06T10:15:00Z" 
+        "borrowDate": "2024-11-06T10:15:00Z"
     },
     {
         "tool": "Oscillating Tool",
         "user": "Ella Brown",
-        "borrowDate": "2024-11-07T12:30:00Z" 
+        "borrowDate": "2024-11-07T12:30:00Z"
     }
 ]
