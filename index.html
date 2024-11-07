@@ -86,7 +86,6 @@
                             borrowDate =  new Date(item.borrowDate);
                         }     
                         const newTool = {toolName, userName , borrowDate};
-                        console.log(newTool);
                         toolData.push(newTool);
                         renderTable();
                         toggleSortOrder()
@@ -243,9 +242,6 @@
                     const borrowedDate = new Date(data.borrowDate);
                     const today = new Date();
                     const daysDiff = Math.floor((today - borrowedDate) / (1000 * 60 * 60 * 24));
-                    console.log("YOLO");
-                    console.log(daysDiff);
-                    console.log("YOLO");
                     if (daysDiff < 3) {
                         row.classList.add('cell-borrowed-user-recent');
                     } else if (daysDiff < 60) {
@@ -295,8 +291,7 @@
             const timeCells = document.querySelectorAll('.time-passed');
             timeCells.forEach(cell => {
                 const borrowDate = new Date(cell.getAttribute('data-borrow-date'));
-                console.log(borrowDate);
-                if (borrowDate.isNaN()){
+                if (!isNaN(borrowDate)){
                     cell.textContent = formatTimePassed(borrowDate);
                 }
                 else{
@@ -311,7 +306,6 @@
             updateTime(); // Initialize time display
             updateInterval = setInterval(updateTimePassed, 1000); // Update time passed every second
             loadToolData();
-            console.log(toolData);
         };
     </script>
     
