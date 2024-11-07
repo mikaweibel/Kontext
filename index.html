@@ -10,15 +10,16 @@
 
     <!-- Header with the current time and user info -->
     <header>
-        <span id="current-time"></span> <span id="user-name">Test User 1</span>
+        <span id="current-time"></span>
+        <span id="user-name">Test User 1</span>
     </header>
 
     <!-- Search and Sort Options -->
     <div class="controls">
         <input type="text" id="search-tool" placeholder="Search by tool" oninput="filterTable()">
         <input type="text" id="search-user" placeholder="Search by user" oninput="filterTable()">
-        <input type="checkbox" id="ignoreAvailableTools" onclick="renderTable()"> Ignore Available
-        <input type="checkbox" id="ignoreNonAvailableTools" onclick="renderTable()"> Ignore Absent Tools
+        <input type="checkbox" id="ignoreAvailableTools" onclick="filterTable()"> Ignore Available
+        <input type="checkbox" id="ignoreNonAvailableTools" onclick="filterTable()"> Ignore Absent Tools
     </div>
 
     <!-- Slidable frame containing the tool borrowing table -->
@@ -42,7 +43,7 @@
                     <td><input type="text" placeholder="User name" id="input-user" class="table-input"></td>
                     <td>–</td>
                     <td>–</td>
-                    <td><button class="add-row-btn" onclick="addRow()">Add</button></td>
+                    <td><button class="notify-btn" onclick="addRow()">Add</button></td>
                 </tr>
             </tbody>
         </table>
@@ -105,6 +106,7 @@
         function updateTime() {
             const now = new Date();
             document.getElementById("current-time").textContent = now.toLocaleString();
+            filterTable();
         }
         setInterval(updateTime, 1000);
     
@@ -285,7 +287,7 @@
             });
 
     
-            renderTable();
+            filterTable();
         }
     
         // Function to update "Time Passed" every second
