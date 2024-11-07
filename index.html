@@ -27,11 +27,16 @@
         <table id="tool-table-header">
             <thead>
                 <tr>
-                    <th>Tool</th>
-                    <th>User</th>
-                    <th>Borrow Date</th>
-                    <th onclick="toggleSortOrder()" class="sortable">Time Passed
-                        <span id="sort-icon">▲</span>
+                    <th onclick ="toggleToolNameSortOrder()" class="sortable">Tool
+                        <span id="tool-name-sort-icon">▲</span>
+                    </th>
+                    <th onclick ="toggleUserNameSortOrder()" class="sortable">User
+                        <span id="user-name-sort-icon">▲</span>
+                    </th>
+                    <th onclick="toggleDateSortOrder()" class="sortable">Borrow date
+                        <span id="borrow-date-sort-icon">▲</span>
+                    <th onclick="toggleDateSortOrder()" class="sortable">Time passed
+                        <span id="date-sort-icon">▲</span>
                     </th>
                     <th>Notify</th>
                 </tr>
@@ -67,6 +72,9 @@
 
     <script>
         let sortOrder = 'asc'; // Default sort order
+        let toolNameOrder = 'Tasc';
+        let userNameOrder = 'Nasc';
+        let borrowDateSortOrder = 'asc';
         const toolData = []; // Data structure for storing tool information
         let updateInterval; // To store the interval ID for time updates
     
@@ -88,19 +96,33 @@
                         const newTool = {toolName, userName , borrowDate};
                         toolData.push(newTool);
                         renderTable();
-                        toggleSortOrder()
+                        toggleDateSortOrder()
                     });
                 })
                 .catch(error => console.error('Error loading tool data:', error));
         }
 
     
-        function toggleSortOrder() {
+        function toggleDateSortOrder() {
             sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-            document.getElementById("sort-icon").textContent = sortOrder === 'asc' ? "▲" : "▼";
+            borrowDateSortOrder = borrowDateSortOrder === 'asc' ? 'desc' : 'asc';
+            document.getElementById("borrow-date-sort-icon").textContent = sortOrder === 'asc' ? "▲" : "▼";
+            document.getElementById("date-sort-icon").textContent = sortOrder === 'asc' ? "▲" : "▼";
             sortTable(sortOrder);
         }
-    
+
+        function toggleToolNameSortOrder() {
+            toolNameOrder = toolNameOrder === 'Tasc' ? 'Tdesc' : 'Tasc';
+            document.getElementById("tool-name-sort-icon").textContent = toolNameOrder === 'Tasc' ? "▲" : "▼";
+            sortTable(toolNameOrder);
+        }
+
+        function toggleUserNameSortOrder() {
+            userNameOrder = userNameOrder === 'Nasc' ? 'Ndesc' : 'Nasc';
+            document.getElementById("user-name-sort-icon").textContent = userNameOrder === 'Nasc' ? "▲" : "▼";
+            sortTable(userNameOrder);
+        }
+
         // Display current time
         function updateTime() {
             const now = new Date();
@@ -258,7 +280,8 @@
     
         // Function to sort the table by time passed
         function sortTable(order) {
-            toolData.sort((a, b) => {
+            if (order == "asc" || order == "desc"){
+                toolData.sort((a, b) => {
                 const dateA = new Date(a.borrowDate);
                 const dateB = new Date(b.borrowDate);
                 
@@ -281,8 +304,32 @@
                 
                 return order === 'asc' ? timeA - timeB : timeB - timeA;
             });
+            }
+            else if (order == "Tasc" || order == "Tdesc") {
+        // Sort by toolName alphabetically
+            toolData.sort((a, b) => {
+                const nameA = a.toolName.toLowerCase();
+                const nameB = b.toolName.toLowerCase();
 
-    
+                if (nameA < nameB) return order === "Tasc" ? -1 : 1;
+                if (nameA > nameB) return order === "Tasc" ? 1 : -1;
+                return 0;
+            });
+            }
+            else if (order == "Nasc" || order == "Ndesc") {
+                // Sort by userName alphabetically
+                toolData.sort((a, b) => {
+                    const nameA = a.userName.toLowerCase();
+                    const nameB = b.userName.toLowerCase();
+
+                // Place "-" entries at the bottom
+                if (nameA === "-" && nameB !== "-") return 1;
+                if (nameB === "-" && nameA !== "-") return -1;
+
+                // Regular alphabetical comparison if neither name is "-"
+                return order === "Nasc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+            });
+            }
             filterTable();
         }
     
